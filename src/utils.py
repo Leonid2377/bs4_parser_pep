@@ -12,7 +12,9 @@ def get_response(session, url):
         response.encoding = "utf-8"
         return response
     except RequestException as exc:
-        logging.exception("Возникла ошибка при загрузке страницы %s", url, stack_info=True)
+        logging.exception(
+            "Возникла ошибка при загрузке страницы %s", url
+        )
         raise RequestException from exc
 
 
@@ -28,12 +30,14 @@ def find_tag(soup, tag=None, attrs=None):
 def get_pep_status(session, pep_status, pep_url):
     response = get_response(session, pep_url)
     soup = BeautifulSoup(response.text, features="lxml")
-    pep_status_table = find_tag(soup, "dl", {"class": "rfc2822 field-list simple"})
+    pep_status_table = find_tag(
+        soup, "dl", {"class": "rfc2822 field-list simple"}
+    )
     status = pep_status_table.find("dt", text="Status")
     status = status.find_next_sibling("dd").text
     if status not in pep_status:
         error_msg = (
-            f"Несовпадающие статусы:\n{pep_url}\nСтатус в карточке: " f"{status}\nОжидаемые статусы: {pep_status}"
+            f"Несовпадающие статусы\nОжидаемые статусы: {pep_status}"
         )
         logging.error(error_msg)
     return status

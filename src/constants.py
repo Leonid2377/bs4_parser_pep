@@ -7,8 +7,10 @@ DT_FILE_FORMAT = "%Y-%m-%d_%H-%M-%S"
 LOG_FORMAT = '"%(asctime)s - [%(levelname)s] - %(message)s"'
 DT_LOG_FORMAT = "%d.%m.%Y %H:%M:%S"
 
-PATTERN_PYTHON_VERSION_STATUS = r"Python (?P<version>\d\.\d+) \((?P<status>.*)\)|(All versions)()"
-PATTERN_ZIP_A4 = r"^.+pdf-a4\.zip$"
+PYTHON_VERSION = (
+    r'Python (?P<version>\d\.\d+) \((?P<status>.*)\)',
+)
+ZIP = r"^.+pdf-a4\.zip$"
 
 EXPECTED_STATUS = {
     "A": ["Active", "Accepted"],

@@ -12,8 +12,8 @@ from constants import (
     EXPECTED_STATUS,
     MAIN_DOC_URL,
     MAIN_PEP_URL,
-    PATTERN_PYTHON_VERSION_STATUS,
-    PATTERN_ZIP_A4,
+    PYTHON_VERSION,
+    ZIP,
 )
 from exceptions import ParserFindTagException
 from outputs import control_output
@@ -50,9 +50,9 @@ def latest_versions(session):
     response = get_response(session, MAIN_DOC_URL)
     soup = BeautifulSoup(response.text, features="lxml")
     tag_version_links = find_tag(soup, "div", {"class": "sphinxsidebarwrapper"}).find_all(
-        "a", text=re.compile(PATTERN_PYTHON_VERSION_STATUS)
+        "a", text=re.compile(PYTHON_VERSION)
     )
-    results.extend(link_parser(link, PATTERN_PYTHON_VERSION_STATUS) for link in tag_version_links)
+    results.extend(link_parser(link, PYTHON_VERSION) for link in tag_version_links)
     if not results:
         error_msg = "Не найдена ни одна ссылка."
         logging.error(error_msg, stack_info=True)
@@ -66,7 +66,7 @@ def download(session):
     soup = BeautifulSoup(response.text, features="lxml")
     main_tag = find_tag(soup, "div", {"role": "main"})
     table_tag = find_tag(main_tag, "table", {"class": "docutils"})
-    a_tag = find_tag(table_tag, "a", {"href": re.compile(PATTERN_ZIP_A4)})
+    a_tag = find_tag(table_tag, "a", {"href": re.compile(ZIP)})
     if not a_tag:
         error_msg = "Ссылка для скачивания не найдена."
         logging.error(error_msg, stack_info=True)

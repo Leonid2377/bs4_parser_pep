@@ -29,7 +29,9 @@ def whats_new(session):
     soup = BeautifulSoup(response.text, features="lxml")
     articles = (
         urljoin(whats_new_url, link.a["href"])
-        for link in find_tag(soup, "div", {"class": "toctree-wrapper compound"}).find_all(class_="toctree-l1")
+        for link in find_tag(soup, "div", {
+        "class": "toctree-wrapper compound"
+    }).find_all(class_="toctree-l1")
     )
     result = [("Ссылка на статью", "Заголовок", "Редактор, Aвтор")]
     for url in tqdm(articles, desc="Обработка URL адресов статей о Python-е."):
@@ -49,10 +51,14 @@ def latest_versions(session):
     results = [("Ссылка на документацию", "Версия", "Статус")]
     response = get_response(session, MAIN_DOC_URL)
     soup = BeautifulSoup(response.text, features="lxml")
-    tag_version_links = find_tag(soup, "div", {"class": "sphinxsidebarwrapper"}).find_all(
+    tag_version_links = find_tag(soup, "div", {
+        "class": "sphinxsidebarwrapper"
+    }).find_all(
         "a", text=re.compile(PYTHON_VERSION)
     )
-    results.extend(link_parser(link, PYTHON_VERSION) for link in tag_version_links)
+    results.extend(
+        link_parser(link, PYTHON_VERSION) for link in tag_version_links
+    )
     if not results:
         error_msg = "Не найдена ни одна ссылка."
         logging.error(error_msg, stack_info=True)

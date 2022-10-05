@@ -29,9 +29,9 @@ def whats_new(session):
     soup = BeautifulSoup(response.text, features="lxml")
     articles = (
         urljoin(whats_new_url, link.a["href"])
-        for link in find_tag(soup, "div", {
-        "class": "toctree-wrapper compound"
-    }).find_all(class_="toctree-l1")
+        for link in find_tag(soup, "div",
+                             {"class": "toctree-wrapper compound"}
+                             ).find_all(class_="toctree-l1")
     )
     result = [("Ссылка на статью", "Заголовок", "Редактор, Aвтор")]
     for url in tqdm(articles, desc="Обработка URL адресов статей о Python-е."):

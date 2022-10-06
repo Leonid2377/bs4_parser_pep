@@ -117,7 +117,9 @@ def pep(session):
                     (str(pep_url), str(status), str(expected_status))
                 )
         except (ConnectionError, ParserFindTagException):
-            logging.warning('Попытка установить соединение была безуспешной, тэг не найден')
+            logging.warning(
+                'Попытка установить соединение была безуспешной, тэг не найден'
+            )
             continue
     for item in unexpected_statuses:
         pep_url, status, expected_status = item

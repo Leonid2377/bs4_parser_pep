@@ -6,21 +6,21 @@
 
 Скачивать актуальную информацию документации
 
-Получать статистику по всем имеющимся на текущи й момент PEP
+Получать статистику по всем имеющимся на текущий момент PEP
 
 **Как пользоватся**:
 >Скопировать проект командой: 
 >> `git clone`
 
 >Установить и активировать виртуальное окружение
->>`python3 -m venv env`
+>>`python3 -m venv venv`
 > 
->>`source env/bin/activate`
+>>`source venv/Scripts/activate`
 > 
 >>`python3 -m pip install --upgrade pip`
  
 >Установить зависимости:
->> `pip install -r api_yamdb/requirements.txt`
+>> `pip install -r bs4_parser_pep/requirements.txt`
 
 
 >Запустить из директории src:
